@@ -27,6 +27,7 @@ dependencies {
 	implementation('org.springframework.boot:spring-boot-starter-webflux')
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '4.1.0'
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '4.1.0'
+	implementation group: 'org.springframework.cloud', name: 'spring-cloud-loadbalancer', version: '4.1.1'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
