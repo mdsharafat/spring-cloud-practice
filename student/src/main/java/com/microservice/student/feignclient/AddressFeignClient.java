@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
  ******************************************
  */
 
-@FeignClient(url = "${address.service.url}", value = "address-feign-client", path = "address/v1")
+@FeignClient(value = "address-service", path = "api/address/v1")
 public interface AddressFeignClient {
 
     @PostMapping("create")
