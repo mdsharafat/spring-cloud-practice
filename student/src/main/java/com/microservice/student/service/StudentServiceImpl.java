@@ -1,6 +1,5 @@
 package com.microservice.student.service;
 
-import com.microservice.student.configuration.AddressWebClient;
 import com.microservice.student.entity.Student;
 import com.microservice.student.feignclient.AddressFeignClient;
 import com.microservice.student.model.request.CreateAddressRequest;
@@ -10,11 +9,7 @@ import com.microservice.student.model.response.StudentResponse;
 import com.microservice.student.repository.StudentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.reactive.function.BodyInserters;
-import reactor.core.publisher.Mono;
 
 /*****************************************
  * @author - Md. Sharafat Hossain
