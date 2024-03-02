@@ -2,6 +2,7 @@ package com.microservice.student.service;
 
 import com.microservice.student.configuration.AddressWebClient;
 import com.microservice.student.entity.Student;
+import com.microservice.student.feignclient.AddressFeignClient;
 import com.microservice.student.model.request.CreateAddressRequest;
 import com.microservice.student.model.request.CreateStudentRequest;
 import com.microservice.student.model.response.AddressResponse;
@@ -28,8 +29,11 @@ public class StudentServiceImpl implements StudentService{
     @Autowired
     StudentRepository studentRepository;
 
+//    @Autowired
+//    AddressWebClient addressWebClient;
+
     @Autowired
-    AddressWebClient addressWebClient;
+    AddressFeignClient addressFeignClient;
 
     @Override
     public StudentResponse create(CreateStudentRequest createStudentRequest) {
@@ -68,19 +72,27 @@ public class StudentServiceImpl implements StudentService{
                 .build();
     }
 
-    public AddressResponse getAddressById(long id) {
-        Mono<AddressResponse> addressResponseMono = addressWebClient.adderssWebClient().get()
-                .uri("/get-by-id/"+id).retrieve().bodyToMono(AddressResponse.class);
-        return addressResponseMono.block();
-    }
+//    public AddressResponse getAddressById(long id) {
+//        Mono<AddressResponse> addressResponseMono = addressWebClient.adderssWebClient().get()
+//                .uri("/get-by-id/"+id).retrieve().bodyToMono(AddressResponse.class);
+//        return addressResponseMono.block();
+//    }
+
+//    public AddressResponse createAddress(CreateAddressRequest createAddressRequest) {
+//        Mono<AddressResponse> addressResponseMono = addressWebClient.adderssWebClient()
+//                .post()
+//                .uri("/create")
+//                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
+//                .body(Mono.just(createAddressRequest), CreateAddressRequest.class)
+//                .retrieve().bodyToMono(AddressResponse.class);
+//        return addressResponseMono.block();
+//    }
 
     public AddressResponse createAddress(CreateAddressRequest createAddressRequest) {
-        Mono<AddressResponse> addressResponseMono = addressWebClient.adderssWebClient()
-                .post()
-                .uri("/create")
-                .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
-                .body(Mono.just(createAddressRequest), CreateAddressRequest.class)
-                .retrieve().bodyToMono(AddressResponse.class);
-        return addressResponseMono.block();
+        return addressFeignClient.create(createAddressRequest);
+    }
+
+    public AddressResponse getAddressById(long id) {
+        return addressFeignClient.getById(id);
     }
 }
