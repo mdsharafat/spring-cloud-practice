@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RequestBody;
  ******************************************
  */
 
-@FeignClient(value = "address-service", path = "api/address/v1")
+@FeignClient(value = "apigw")
 public interface AddressFeignClient {
 
-    @PostMapping("create")
+    @PostMapping("address-service/api/address/v1/create")
     public AddressResponse create(@RequestBody CreateAddressRequest createAddressRequest);
-    @GetMapping("/get-by-id/{id}")
+    @GetMapping("address-service/api/address/v1/get-by-id/{id}")
     public AddressResponse getById(@PathVariable long id);
 }
