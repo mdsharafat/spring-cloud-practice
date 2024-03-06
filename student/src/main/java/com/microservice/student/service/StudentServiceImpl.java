@@ -32,7 +32,6 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public StudentResponse create(CreateStudentRequest createStudentRequest) {
-        log.info("Inside create Student method. CreateStudentRequest {}", createStudentRequest.toString());
         AddressResponse addressResponse = createAddress(createStudentRequest.getAddress());
 
         Student student = Student.builder().firstName(createStudentRequest.getFirstName())
@@ -52,11 +51,8 @@ public class StudentServiceImpl implements StudentService{
 
     @Override
     public StudentResponse getById(long id) {
-        log.info("Inside get student by id method for id = {} ", id);
         Student student = studentRepository.findById(id).get();
-
         AddressResponse addressResponse = getAddressById(student.getAddressId());
-        log.info("Student Addess : {}", addressResponse.toString());
 
         return StudentResponse.builder().id(student.getId())
                 .firstName(student.getFirstName())
