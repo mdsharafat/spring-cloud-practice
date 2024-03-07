@@ -7,6 +7,7 @@ import com.microservice.student.model.request.CreateStudentRequest;
 import com.microservice.student.model.response.AddressResponse;
 import com.microservice.student.model.response.StudentResponse;
 import com.microservice.student.repository.StudentRepository;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,9 @@ public class StudentServiceImpl implements StudentService{
     @Autowired
     AddressFeignClient addressFeignClient;
 
+    @Autowired
+    CommonService commonService;
+
     @Override
     public StudentResponse create(CreateStudentRequest createStudentRequest) {
         AddressResponse addressResponse = createAddress(createStudentRequest.getAddress());
@@ -52,7 +56,7 @@ public class StudentServiceImpl implements StudentService{
     @Override
     public StudentResponse getById(long id) {
         Student student = studentRepository.findById(id).get();
-        AddressResponse addressResponse = getAddressById(student.getAddressId());
+        AddressResponse addressResponse = commonService.getAddressById(student.getAddressId());
 
         return StudentResponse.builder().id(student.getId())
                 .firstName(student.getFirstName())
@@ -83,7 +87,5 @@ public class StudentServiceImpl implements StudentService{
         return addressFeignClient.create(createAddressRequest);
     }
 
-    public AddressResponse getAddressById(long id) {
-        return addressFeignClient.getById(id);
-    }
+
 }

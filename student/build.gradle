@@ -23,11 +23,14 @@ repositories {
 
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-actuator', version: '3.2.3'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation('org.springframework.boot:spring-boot-starter-webflux')
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-netflix-eureka-client', version: '4.1.0'
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-starter-openfeign', version: '4.1.0'
 	implementation group: 'org.springframework.cloud', name: 'spring-cloud-loadbalancer', version: '4.1.1'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-aop', version: '3.2.3'
+	implementation group: 'io.github.resilience4j', name: 'resilience4j-spring-boot2', version: '2.2.0'
 	compileOnly 'org.projectlombok:lombok'
 	runtimeOnly 'com.mysql:mysql-connector-j'
 	annotationProcessor 'org.projectlombok:lombok'
